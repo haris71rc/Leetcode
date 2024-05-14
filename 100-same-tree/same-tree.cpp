@@ -20,6 +20,6 @@ public:
         bool right=isSameTree(p->right,q->right);
 
         if(p->val==q->val && left && right) return true;
-        else{return false;}
+        else return false;
     }
 };
