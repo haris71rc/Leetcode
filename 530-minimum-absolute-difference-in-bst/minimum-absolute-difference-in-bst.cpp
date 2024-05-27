@@ -3,16 +3,15 @@ private:
     void inOrderTraversal(TreeNode* root, int& prev, int& minDiff) {
         if (!root) return;
 
-        // Traverse the left subtree
         inOrderTraversal(root->left, prev, minDiff);
 
-        // Process the current node
         if (prev != -1) {
             minDiff = min(minDiff, root->val - prev);
+            cout<<"root Val "<<root->val<<" "<<"prev "<<prev<<" mindiff "<<minDiff<<endl;
         }
         prev = root->val;
+        cout<<prev<<endl;
 
-        // Traverse the right subtree
         inOrderTraversal(root->right, prev, minDiff);
     }
 
