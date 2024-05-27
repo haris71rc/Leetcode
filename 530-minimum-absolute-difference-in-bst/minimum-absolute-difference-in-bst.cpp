@@ -7,10 +7,10 @@ private:
 
         if (prev != -1) {
             minDiff = min(minDiff, root->val - prev);
-            cout<<"root Val "<<root->val<<" "<<"prev "<<prev<<" mindiff "<<minDiff<<endl;
+            //cout<<"root Val "<<root->val<<" "<<"prev "<<prev<<" mindiff "<<minDiff<<endl;
         }
         prev = root->val;
-        cout<<prev<<endl;
+        //cout<<prev<<endl;
 
         inOrderTraversal(root->right, prev, minDiff);
     }
