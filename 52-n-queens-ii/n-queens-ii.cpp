@@ -11,14 +11,14 @@ private:
             y--;
         }
         //current position se down me koi queen na ho
-         x=row;
-	 y=col;
-	while(x<n &&y>=0){
-        if(board[x][y]==1)
-		return false;
-		x++;
-		y--;
-	}
+        x=row;
+	    y=col;
+        while(x<n &&y>=0){
+            if(board[x][y]==1)
+            return false;
+            x++;
+            y--;
+        }
         //current position se diagonally upar me koi queen na ho
          x=row;
          y=col;
