@@ -9,20 +9,65 @@
  * };
  */
 class Solution {
+private:
+    ListNode* findMid(ListNode* head){
+        ListNode* slow=head;
+        ListNode* fast=head->next;
+        while(fast!=NULL && fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }   
+    ListNode* merge(ListNode* left,ListNode* right){
+        if(left==NULL) return right;
+        if(right==NULL) return left;
+
+        ListNode* dummy = new ListNode(-1);
+        ListNode* temp=dummy;
+        while(left!=NULL && right!=NULL){
+            if(left->val<right->val){
+                temp->next=left;
+                temp=left;
+                left=left->next;
+            }
+            else{
+                temp->next=right;
+                temp=right;
+                right=right->next;
+            }
+        }
+        while(left!=NULL){
+            temp->next=left;
+            temp=left;
+            left=left->next; 
+        }
+        while(right!=NULL){
+            temp->next=right;
+            temp=right;
+            right=right->next; 
+        }
+        return dummy->next;
+    } 
 public:
     ListNode* sortList(ListNode* head) {
-        vector<int> v;
-        ListNode* temp=head;
-        while(temp!=NULL){
-            v.push_back(temp->val);
-            temp=temp->next;
-        }
-        sort(v.begin(),v.end());
-        temp=head;
-        for(int i=0;i<v.size();i++){
-            temp->val=v[i];
-            temp=temp->next;
-        }
+        if(head==NULL || head->next==NULL) return head;
+
+        //break linked list into two halves
+        ListNode* mid = findMid(head);
+
+        ListNode* left=head;
+        ListNode* right=mid->next;
+        mid->next=NULL;
+
+        //Merge sort two linked lists
+        left=sortList(left);
+        right=sortList(right);
+
+        //Merge the sorted linked lists
+        head=merge(left,right);
+
         return head;
+
     }
 };
