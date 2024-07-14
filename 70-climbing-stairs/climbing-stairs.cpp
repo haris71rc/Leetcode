@@ -3,13 +3,15 @@ private:
     int solve(int n){
         
         vector<int> dp(n+1,-1);
-        dp[0]=1;
-        dp[1]=1;
-
+        int pp=1;
+        int p=1;
+        int curr;
         for(int i=2;i<=n;i++){
-             dp[i] = dp[i-1] + dp[i-2];
+             curr = p + pp;
+             pp=p;
+             p=curr;
         }
-        return dp[n];
+        return p;
     }    
 public:
     int climbStairs(int n) {
