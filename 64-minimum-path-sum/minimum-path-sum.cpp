@@ -8,10 +8,10 @@ private:
 
         if(dp[i][j]!=-1) return dp[i][j];
         
-        int right = solve(grid, i, j+1,n,m,dp);
-        int down = solve(grid, i+1, j,n,m,dp);
+        int right = grid[i][j] + solve(grid, i, j+1,n,m,dp);
+        int down = grid[i][j] + solve(grid, i+1, j,n,m,dp);
         
-        return dp[i][j]=grid[i][j] + min(right, down);
+        return dp[i][j]= min(right, down);
     }
     int solveMemo(vector<vector<int>>& grid,int n,int m){
         vector<vector<int>>dp(n,vector<int>(m,INT_MAX));
