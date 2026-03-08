@@ -7,31 +7,31 @@
  * };
  */
 class Solution {
-private:
-    ListNode *fldc(ListNode *head){
-        if(head==NULL) return NULL;
-        ListNode *slow=head;
-        ListNode *fast=head;
-        while(fast!=NULL && fast->next!=NULL){
-            fast=fast->next->next;
-           
-            slow=slow->next;
-            if(fast==slow){
-                return slow;
-            }
-        }
-        return NULL;
-    }
 public:
     ListNode *detectCycle(ListNode *head) {
-        if(head==NULL || head->next==NULL) return NULL;
-        ListNode * intersectionPoint=fldc(head);
-        if(intersectionPoint==NULL) return NULL;
-        ListNode *slow=head;
-        while(slow!=intersectionPoint){
-            slow=slow->next;
-            intersectionPoint=intersectionPoint->next;
+         ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* meetingNode = NULL;
+
+        while (fast != NULL&& fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+
+            if (slow == fast) {
+                meetingNode = slow;
+                slow=head;
+                break;
+            }
         }
-        return slow;
+        if (meetingNode == NULL) {
+            return meetingNode;
+        } 
+
+        while(meetingNode != slow){
+            meetingNode = meetingNode->next;
+            slow = slow->next;
+        }
+
+        return meetingNode;
     }
 };
