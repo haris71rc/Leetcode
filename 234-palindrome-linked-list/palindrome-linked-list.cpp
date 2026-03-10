@@ -38,7 +38,6 @@ public:
 
         slow=head;
         while(prev!=NULL){
-            //cout<<"Current slow node "<<slow->val<<" and currNext node "<<currNext->val<<"\n";
             if(slow->val != prev->val){
                 return false;
             }
