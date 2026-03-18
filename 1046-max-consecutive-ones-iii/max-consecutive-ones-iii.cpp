@@ -6,9 +6,7 @@ public:
 
         while (j < nums.size()) {
             count[nums[j]]++;
-            //cout<<"For the "<<j<< " the value is "<<count[j]<<"\n";
             while(count[0] > k) {
-                cout<<count[0]<<" and count of 1 "<<count[1]<<"\n";
                 count[nums[i]]--;
                 i++;
             }
