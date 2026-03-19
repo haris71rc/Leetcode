@@ -28,7 +28,6 @@ public:
             }
             j++;
         }
-        cout<<"Start index "<< startIndex << " len "<< len<< "\n";
         return len == s1.length() ? true : false;
     }
 };
