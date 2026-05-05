@@ -1,18 +1,20 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        map<char,int> mega;
-        for(int i=0;i<magazine.size();i++){
-            mega[magazine[i]]++;
+        map<char, int> m;
+        bool ans = true;
+        for (int i = 0; i < magazine.size(); i++) {
+            m[magazine[i]]++;
         }
-        for(int i=0;i<ransomNote.size();i++){
-            if(mega.find(ransomNote[i])!=mega.end() && mega[ransomNote[i]]>0){
-                mega[ransomNote[i]]--;
-            }
-            else{
-                return false;
+
+        for (auto ele : ransomNote) {
+            if (m.find(ele) != m.end() && m[ele] > 0) {
+                
+                m[ele]--;
+            } else {
+              return false;
             }
         }
-        return true;
+        return ans;
     }
 };
