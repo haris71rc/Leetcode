@@ -5,7 +5,6 @@ private:
         for(int i=0;i<piles.size();i++){
             hours += ceil((double)piles[i] / mid);
         }
-        cout<<"for the hour "<<mid<<" the sum is "<<hours<<"\n";
         return hours;
     }
 public:
