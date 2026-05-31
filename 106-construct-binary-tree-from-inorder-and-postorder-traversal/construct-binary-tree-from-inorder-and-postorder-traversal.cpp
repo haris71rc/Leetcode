@@ -11,29 +11,25 @@
  */
 class Solution {
 private:
-    void createMap(vector<int>& inorder,int n,map<int,int> &m){
+    TreeNode* solve(vector<int>& postorder, vector<int>& inorder,unordered_map<int,int> &m,
+                    int postStart, int postEnd, int inStart, int inEnd){
+        if(postStart>postEnd || inStart>inEnd) return NULL;
 
-        for(int i=0;i<n;i++){
-            m[inorder[i]]=i;
-        }
-    }
-    TreeNode* solve(vector<int>& inorder, vector<int>& postorder,int start,int end,int &index,int size,map<int,int> &m){
-        if(index<0 || start>end) return NULL;
-        TreeNode* root=new TreeNode(postorder[index]);
-        int k=m[postorder[index]];
-    
-        index--;
-        root->right=solve(inorder,postorder,k+1,end,index,size,m);
-        root->left=solve(inorder,postorder,start,k-1,index,size,m);
-        
+        TreeNode* root = new TreeNode(postorder[postEnd]);
+
+        int inRoot=m[root->val];
+        int itemLeft=inRoot-inStart;
+
+        root->left = solve(postorder,inorder,m,postStart,postStart+itemLeft-1,inStart,inRoot-1);
+        root->right = solve(postorder,inorder,m,postStart+itemLeft,postEnd-1,inRoot+1,inEnd);
         return root;
-    }    
+    }
 public:
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        int n=inorder.size();
-        int index=n-1;
-        map<int,int>m;
-        createMap(inorder,n,m);
-        return solve(inorder,postorder,0,n-1,index,n,m);
+        unordered_map<int,int> m;
+        for(int i=0;i<inorder.size();i++){
+            m[inorder[i]]=i;
+        }
+        return solve(postorder,inorder,m,0,postorder.size()-1,0,inorder.size()-1);
     }
 };
