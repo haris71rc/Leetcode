@@ -6,11 +6,6 @@ public:
         for(auto ch: s){
             m[ch]++;
         }
-        if(m.size() == 1){
-            for(auto e:m){
-                return e.second;
-            }
-        }
         for(auto element:m){
             if(element.second%2 == 0){
                 ans+=element.second;
