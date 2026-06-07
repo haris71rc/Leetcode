@@ -1,40 +1,45 @@
 class Solution {
-private: 
-    int bouqueMade(vector<int>& bloomDay, int k, int mid){
-        int count=0,bouque=0;
+private:
+    int bouquetMade(vector<int>& bloomDay, int k, int day) {
+        int count = 0, bouquet = 0;
 
-        for(auto day: bloomDay){
-            if(day<mid){
+        for (int bloom : bloomDay) {
+            if (bloom <= day) {   // flower has bloomed by 'day'
                 count++;
-                if(count==k){
-                    bouque++;
-                    count=0;
+
+                if (count == k) {
+                    bouquet++;
+                    count = 0;
                 }
-            }
-            else{
-                count=0;
+            } else {
+                count = 0;
             }
         }
-        return bouque;
+
+        return bouquet;
     }
+
 public:
     int minDays(vector<int>& bloomDay, int m, int k) {
-        if(bloomDay.size()<(long long)m*k) return -1;
-        int low = *min_element(bloomDay.begin(),bloomDay.end());
-        int end = *max_element(bloomDay.begin(),bloomDay.end());
-        int ans;
+        if (bloomDay.size() < (long long)m * k)
+            return -1;
 
-        while(low<=end){
-            int mid = low + (end-low)/2;
+        int low = *min_element(bloomDay.begin(), bloomDay.end());
+        int high = *max_element(bloomDay.begin(), bloomDay.end());
 
-            if(bouqueMade(bloomDay, k, mid) < m){
-                ans=mid;
-                low = mid+1;
-            }
-            else{
-                end=mid-1;
+        int ans = -1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (bouquetMade(bloomDay, k, mid) >= m) {
+                ans = mid;          // valid day
+                high = mid - 1;    // try to find a smaller valid day
+            } else {
+                low = mid + 1;     // need more days
             }
         }
+
         return ans;
     }
 };
