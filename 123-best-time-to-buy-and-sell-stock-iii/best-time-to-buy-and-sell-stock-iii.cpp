@@ -1,29 +1,29 @@
 class Solution {
 private:
-    int solve(vector<int>& prices,int i,int buy,int limit,vector<vector<vector<int>>> &dp){
+    int solve(vector<int>& prices, int i, int buy, int trans, vector<vector<vector<int>>> &dp){
         if(i>=prices.size()) return 0;
-        if(limit==0) return 0;
+        if(trans==2) return 0;
 
-        if(dp[i][buy][limit]!=-1) return dp[i][buy][limit];
+        int ans=0;
+
+        if(dp[i][buy][trans]!=-1) return dp[i][buy][trans];
 
         if(buy){
-            int buyKro = -prices[i] + solve(prices,i+1,0,limit,dp);
-            int skipKro = 0 + solve(prices,i+1,buy,limit,dp);
-            dp[i][buy][limit] =  max(buyKro,skipKro);
+            int buy =- prices[i] + solve(prices,i+1,0,trans,dp);
+            int skip= solve(prices,i+1,1,trans,dp);
+            ans=max(buy,skip);
         }
         else{
-            int sellKro = prices[i]+solve(prices,i+1,1,limit-1,dp);
-            int skipKro = 0 + solve(prices,i+1,buy,limit,dp);
-            dp[i][buy][limit] = max(sellKro,skipKro);
+            int sell =+ prices[i] + solve(prices,i+1,1,trans+1,dp);
+            int skip= solve(prices,i+1,0,trans,dp);
+            ans=max(sell,skip);
         }
-        return dp[i][buy][limit];
-    }    
+        return dp[i][buy][trans] = ans;
+    }
 public:
     int maxProfit(vector<int>& prices) {
-        int buy=1;
-        int limit=2;
         int n=prices.size();
-        vector<vector<vector<int>>>dp(n,vector<vector<int>>(2,vector<int>(3,-1)));
-        return solve(prices,0,buy,limit,dp);
+        vector<vector<vector<int>>> dp(n,vector<vector<int>>(2,vector<int>(2,-1)));
+        return solve(prices,0,1,0,dp);
     }
 };
